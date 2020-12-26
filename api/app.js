@@ -5,10 +5,10 @@ const host = process.env.HOST;
 const express = require('express');
 const app = express();
 
+const postsRoutes = require('./routes/posts');
 
-app.get('/', (req, res) => {
-  res.send('Hello World! I\'m going to develop a new social network');
-});
+app.use('/', postsRoutes);
+
 
 app.use(function(err, req, res, next) {
   console.error(err.stack);
