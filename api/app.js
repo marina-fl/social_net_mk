@@ -1,14 +1,23 @@
 require('dotenv').config();
-const port = process.env.PORT;
-const host = process.env.HOST;
 
+const port = process.env.PORT;
 const express = require('express');
 const app = express();
-
+const bodyParser = require('body-parser');
 const postsRoutes = require('./routes/posts');
+//const usersRoutes = require('./routes/users');
 
-app.use('/', postsRoutes);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
+app.get('/', (req, res) => {
+  res.send('Hello World! It\'s a minglerK network');
+});
+
+app.use('/posts', postsRoutes);
+//app.use('/users', usersRoutes);
 
 app.use(function(err, req, res, next) {
   console.error(err.stack);
