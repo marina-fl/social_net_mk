@@ -1,27 +1,26 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../utilits/database')
 
-router.get('/', (req, res) => {
-    res.send('Hello World! I\'m going to develop a new social network');
-  });
-  
-router.get('/posts', function(req, res) {
-  res.send('posts list');
+router.get('/', function(req, res) {
+  db.select().from('post').then(function(data){
+    res.send(data);
+  })
 });
 
-router.get('/posts/:id', function(req, res) {
-  res.send('post page');
+router.get('/:id', function(req, res) {
+  res.send({message: `post ${id} page`});
 });
 
-router.post('/posts', function(req, res) {
+router.post('/', function(req, res) {
     res.send('new post');
   });
 
-router.put('/posts/:id', function(req, res) {
-    res.send('update existing post');
+router.put('/:id', function(req, res) {
+    res.send(`update existing post ${id}`);
   });
-router.delete('/posts/:id', function(req, res) {
-    res.send('delete selected post');
+router.delete('/:id', function(req, res) {
+    res.send(`delete selected post ${id}`);
   });  
 
 module.exports = router;
